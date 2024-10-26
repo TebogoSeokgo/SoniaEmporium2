@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EBE7E7"
+    tools:context=".Shop">
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="123dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="43dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/backbtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sonia_logo" />
+
+    <ImageButton
+        android:id="@+id/backbtn"
+        android:layout_width="55dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="356dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_ios_new_24" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Shop"
+        android:textColor="#0E0E0E"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imageView25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView25"
+        android:layout_width="52dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="31dp"
+        android:background="#020202"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/baseline_add_shopping_cart_24" />
+
+    <!-- Product Image -->
+
+    <!-- Product Description -->
+    <!-- Spinner for Size Selection -->
+
+    <!-- Add to Cart Button -->
+
+    <!-- RecyclerView for Cart Items -->
+
+    <TextView
+        android:id="@+id/productDescription"
+        android:layout_width="199dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="51dp"
+        android:text="Yellow Pair          R899.99"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/sizeSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView28"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+    <Spinner
+        android:id="@+id/sizeSpinner"
+        android:layout_width="196dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="54dp"
+        app:layout_constraintBottom_toTopOf="@+id/addbtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView28"
+        app:layout_constraintTop_toBottomOf="@+id/productDescription" />
+
+    <Button
+        android:id="@+id/addbtn"
+        android:layout_width="68dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="183dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#000000"
+        android:text="Add "
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/textView33"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView28"
+        app:layout_constraintTop_toBottomOf="@+id/sizeSpinner" />
+
+    <ImageView
+        android:id="@+id/imageView28"
+        android:layout_width="141dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView29"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:srcCompat="@drawable/yellowpair" />
+
+    <ImageView
+        android:id="@+id/imageView29"
+        android:layout_width="137dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView30"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView28"
+        app:srcCompat="@drawable/floralpair" />
+
+    <ImageView
+        android:id="@+id/imageView30"
+        android:layout_width="137dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView31"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView29"
+        app:srcCompat="@drawable/creamdress" />
+
+    <ImageView
+        android:id="@+id/imageView31"
+        android:layout_width="139dp"
+        android:layout_height="118dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="53dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView30"
+        app:srcCompat="@drawable/pinktop" />
+
+    <TextView
+        android:id="@+id/textView33"
+        android:layout_width="203dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="50dp"
+        android:text="Floral Pair            R999.99"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView29"
+        app:layout_constraintTop_toBottomOf="@+id/addbtn" />
+
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:text="Cream Dress       R799.99"
+        android:textColor="#020202"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/spinner2"
+        app:layout_constraintStart_toEndOf="@+id/imageView30"
+        app:layout_constraintTop_toBottomOf="@+id/addbtn2" />
+
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="201dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="46dp"
+        android:text="Pink Top              R599.99"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/spinner3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView31"
+        app:layout_constraintTop_toBottomOf="@+id/addbtn3" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="204dp"
+        android:layout_height="29dp"
+        android:layout_marginEnd="47dp"
+        app:layout_constraintBottom_toTopOf="@+id/addbtn2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView33" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="197dp"
+        android:layout_height="27dp"
+        android:layout_marginEnd="51dp"
+        app:layout_constraintBottom_toTopOf="@+id/addbtn3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView34" />
+
+    <Spinner
+        android:id="@+id/spinner3"
+        android:layout_width="196dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="46dp"
+        app:layout_constraintBottom_toTopOf="@+id/addbtn4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView35" />
+
+    <Button
+        android:id="@+id/addbtn2"
+        android:layout_width="67dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#070707"
+        android:text="ADD"
+        android:textColor="#FBFBFB"
+        app:layout_constraintBottom_toTopOf="@+id/textView34"
+        app:layout_constraintStart_toEndOf="@+id/imageView29"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <Button
+        android:id="@+id/addbtn3"
+        android:layout_width="76dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="172dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#000000"
+        android:text="ADD"
+        android:textColor="#EDEDED"
+        app:layout_constraintBottom_toTopOf="@+id/textView35"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView30"
+        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+
+    <Button
+        android:id="@+id/addbtn4"
+        android:layout_width="74dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="90dp"
+        android:backgroundTint="#000000"
+        android:text="ADD"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView31"
+        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+
+    <ImageButton
+        android:id="@+id/Cartbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="338dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="18dp"
+        android:backgroundTint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner3"
+        app:srcCompat="@drawable/baseline_shopping_cart_24" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
