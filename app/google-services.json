@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "518107788590",
+    "project_id": "soniaemporium-c098e",
+    "storage_bucket": "soniaemporium-c098e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518107788590:android:cbf8f3a821fa7a8c23b6bf",
+        "android_client_info": {
+          "package_name": "com.example.soniaemporium2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAweXNHiKQ5sLTTa3ZZ-LiczQr5AB3qWhM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
