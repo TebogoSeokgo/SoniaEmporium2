@@ -7,16 +7,16 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FirebaseFirestore
+import java.util.UUID
 
 class Checkout : AppCompatActivity() {
 
-    private lateinit var backbtn: ImageButton
+    private lateinit var backBtn: ImageButton
     private lateinit var checkoutButton: Button
-    private lateinit var totalPriceTextView: TextView // Define totalPriceTextView
+    private lateinit var totalPriceTextView: TextView
 
-    // Define EditText variables for the address fields
     private lateinit var streetAddress: EditText
     private lateinit var city: EditText
     private lateinit var suburb: EditText
@@ -28,19 +28,43 @@ class Checkout : AppCompatActivity() {
     private lateinit var cvv: EditText
     private lateinit var expiryDate: EditText
 
+    private lateinit var firestore: FirebaseFirestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_checkout)
 
-        // Retrieve the total price from the intent
-        val totalPrice = intent.getDoubleExtra("TOTAL_PRICE", 0.0)
+        firestore = FirebaseFirestore.getInstance()
 
-        // Display the total price
+        // Fetch and display total price
+        val totalPrice = intent.getDoubleExtra("TOTAL_PRICE", 0.0)
         totalPriceTextView = findViewById(R.id.totalPrice)
         totalPriceTextView.text = "Total Price: R$totalPrice"
 
-        // Initialize EditTexts for user input
+        // Initialize UI components
+        initializeUI()
+
+        // Set listener for back button
+        backBtn.setOnClickListener {
+            Toast.makeText(this, "Going back to Cart", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, Cart::class.java))
+            finish()
+        }
+
+        // Set listener for checkout button
+        checkoutButton.setOnClickListener {
+            if (validateInput()) {
+                saveCheckoutDataToFirestore(totalPrice)
+                // Navigate to SuccessfulPayment activity
+                startActivity(Intent(this, SuccessfulPayment::class.java).apply {
+                    putExtra("TOTAL_PRICE", totalPrice)
+                })
+                finish()
+            }
+        }
+    }
+
+    private fun initializeUI() {
         streetAddress = findViewById(R.id.streetAddress)
         city = findViewById(R.id.city)
         suburb = findViewById(R.id.suburb)
@@ -51,75 +75,81 @@ class Checkout : AppCompatActivity() {
         bankName = findViewById(R.id.bankName)
         cvv = findViewById(R.id.cvv)
         expiryDate = findViewById(R.id.expiryDate)
-
-        backbtn = findViewById(R.id.backbtn)
-
-        // Set click listener for back button to navigate back to Cart
-        backbtn.setOnClickListener {
-            Toast.makeText(this, "Going back to Cart", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, Cart::class.java)
-            startActivity(intent)
-            finish()
-        }
-
         checkoutButton = findViewById(R.id.checkoutButton)
-
-        // Set click listener for checkout button
-        checkoutButton.setOnClickListener {
-            // Validate input and proceed with checkout
-            if (validateInput()) {
-                Toast.makeText(this, "Checkout successful!", Toast.LENGTH_LONG).show()
-                val intent = Intent(this, SuccessfulPayment::class.java)
-                intent.putExtra("TOTAL_PRICE", totalPrice)
-                startActivity(intent)
-            }
-        }
+        backBtn = findViewById(R.id.backbtn)
     }
 
     private fun validateInput(): Boolean {
-        // Basic validation for empty fields
         return when {
             streetAddress.text.isEmpty() -> {
-                Toast.makeText(this, "Please enter your street address", Toast.LENGTH_SHORT).show()
+                streetAddress.error = "Please enter your street address"
                 false
             }
             city.text.isEmpty() -> {
-                Toast.makeText(this, "Please enter your city", Toast.LENGTH_SHORT).show()
+                city.error = "Please enter your city"
                 false
             }
             suburb.text.isEmpty() -> {
-                Toast.makeText(this, "Please enter your suburb", Toast.LENGTH_SHORT).show()
+                suburb.error = "Please enter your suburb"
                 false
             }
             country.text.isEmpty() -> {
-                Toast.makeText(this, "Please enter your country", Toast.LENGTH_SHORT).show()
+                country.error = "Please enter your country"
                 false
             }
             postalCode.text.isEmpty() -> {
-                Toast.makeText(this, "Please enter your postal code", Toast.LENGTH_SHORT).show()
+                postalCode.error = "Please enter your postal code"
                 false
             }
             bankAccountNumber.text.isEmpty() -> {
-                Toast.makeText(this, "Please enter your bank account number", Toast.LENGTH_SHORT).show()
+                bankAccountNumber.error = "Please enter your bank account number"
                 false
             }
             cardHolderName.text.isEmpty() -> {
-                Toast.makeText(this, "Please enter your card holder name", Toast.LENGTH_SHORT).show()
+                cardHolderName.error = "Please enter your card holder name"
                 false
             }
             bankName.text.isEmpty() -> {
-                Toast.makeText(this, "Please enter your bank name", Toast.LENGTH_SHORT).show()
+                bankName.error = "Please enter your bank name"
                 false
             }
             cvv.text.isEmpty() || cvv.text.length != 3 -> {
-                Toast.makeText(this, "Please enter a valid CVV", Toast.LENGTH_SHORT).show()
+                cvv.error = "Please enter a valid CVV"
                 false
             }
             expiryDate.text.isEmpty() -> {
-                Toast.makeText(this, "Please enter the expiry date", Toast.LENGTH_SHORT).show()
+                expiryDate.error = "Please enter the expiry date"
                 false
             }
             else -> true
         }
+    }
+
+    private fun saveCheckoutDataToFirestore(totalPrice: Double) {
+        val uniqueId = UUID.randomUUID().toString() // Generate a unique ID for the document
+
+        val paymentAndDelivery = hashMapOf(
+            "streetAddress" to streetAddress.text.toString(),
+            "city" to city.text.toString(),
+            "suburb" to suburb.text.toString(),
+            "country" to country.text.toString(),
+            "postalCode" to postalCode.text.toString(),
+            "bankAccountNumber" to bankAccountNumber.text.toString(),
+            "cardHolderName" to cardHolderName.text.toString(),
+            "bankName" to bankName.text.toString(),
+            "cvv" to cvv.text.toString(),
+            "expiryDate" to expiryDate.text.toString(),
+            "totalPrice" to totalPrice
+        )
+
+        firestore.collection("checkouts")
+            .document(uniqueId) // Save each checkout under a unique ID
+            .set(paymentAndDelivery)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Checkout saved successfully!", Toast.LENGTH_LONG).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to save checkout data.", Toast.LENGTH_SHORT).show()
+            }
     }
 }
