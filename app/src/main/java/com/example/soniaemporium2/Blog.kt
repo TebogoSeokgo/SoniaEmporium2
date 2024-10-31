@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 
 class Blog : AppCompatActivity() {
 
+    // Declare variable for the back button
     private lateinit var backbtn: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +19,7 @@ class Blog : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_blog)
 
+        // Initialize the back button by finding it in the layout
         backbtn = findViewById(R.id.backbtn)
 
         // Set click listener for back button to navigate back to MainActivity
