@@ -2,6 +2,7 @@ package com.example.soniaemporium2
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -15,7 +16,6 @@ class SignUp : AppCompatActivity() {
     private lateinit var lastNameEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
-    private lateinit var confirmPasswordEditText: EditText
     private lateinit var registerButton: Button
     private lateinit var loginButton: Button
     private lateinit var backButton: ImageButton
@@ -33,7 +33,6 @@ class SignUp : AppCompatActivity() {
         lastNameEditText = findViewById(R.id.editTextText3)
         emailEditText = findViewById(R.id.editTextText)
         passwordEditText = findViewById(R.id.editTextNumberPassword)
-        confirmPasswordEditText = findViewById(R.id.editTextText5)
         registerButton = findViewById(R.id.regbtn)
         loginButton = findViewById(R.id.logbtn)
         backButton = findViewById(R.id.backbtn)
@@ -45,20 +44,20 @@ class SignUp : AppCompatActivity() {
 
         // Register button click listener
         registerButton.setOnClickListener {
-            val firstName = firstNameEditText.text.toString()
-            val lastName = lastNameEditText.text.toString()
-            val email = emailEditText.text.toString()
-            val password = passwordEditText.text.toString()
-            val confirmPassword = confirmPasswordEditText.text.toString()
+            val firstName = firstNameEditText.text.toString().trim()
+            val lastName = lastNameEditText.text.toString().trim()
+            val email = emailEditText.text.toString().trim()
+            val password = passwordEditText.text.toString().trim()
 
             // Validate input
-            if (validateInput(firstName, lastName, email, password, confirmPassword)) {
+            if (validateInput(firstName, lastName, email, password)) {
                 registerUser(email, password)
             }
         }
 
         // Login button click listener
         loginButton.setOnClickListener {
+            Toast.makeText(this, "Login", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
@@ -69,32 +68,33 @@ class SignUp : AppCompatActivity() {
         firstName: String,
         lastName: String,
         email: String,
-        password: String,
-        confirmPassword: String
+        password: String
     ): Boolean {
+        val passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#\$%^&+=!]).{8,}$".toRegex() // Requires at least one lowercase, uppercase, digit, special character, and minimum 8 characters
+
         return when {
-            firstName.isEmpty() -> {
+            firstName.isBlank() -> {
                 firstNameEditText.error = "First name required"
                 false
             }
-            lastName.isEmpty() -> {
+            lastName.isBlank() -> {
                 lastNameEditText.error = "Last name required"
                 false
             }
-            email.isEmpty() -> {
+            email.isBlank() -> {
                 emailEditText.error = "Email required"
                 false
             }
-            password.isEmpty() -> {
+            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                emailEditText.error = "Enter a valid email"
+                false
+            }
+            password.isBlank() -> {
                 passwordEditText.error = "Password required"
                 false
             }
-            confirmPassword.isEmpty() -> {
-                confirmPasswordEditText.error = "Confirm your password"
-                false
-            }
-            password != confirmPassword -> {
-                confirmPasswordEditText.error = "Passwords do not match"
+            !password.matches(passwordPattern) -> {
+                passwordEditText.error = "Password must contain at least 8 characters, including upper and lower case letters, a number, and a special character"
                 false
             }
             else -> true
@@ -108,13 +108,13 @@ class SignUp : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Registration successful
                     Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show()
-                    // Redirect to Main Activity or another activity
+                    // Redirect to Login activity
                     val intent = Intent(this, Login::class.java)
                     startActivity(intent)
                     finish()
                 } else {
-                    // Registration failed
-                    Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                    // Registration failed, provide feedback
+                    Toast.makeText(this, "Registration failed: ${task.exception?.localizedMessage}", Toast.LENGTH_LONG).show()
                 }
             }
     }
