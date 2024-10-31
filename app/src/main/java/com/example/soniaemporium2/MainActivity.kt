@@ -40,15 +40,8 @@ class MainActivity : AppCompatActivity() {
         cart5btn = findViewById(R.id.cart5btn)
         signupbtn = findViewById(R.id.signupbtn)
         loginbtn = findViewById(R.id.loginbtn)
-        adminbtn = findViewById(R.id.adminbtn)
 
         // Set up click listeners for the buttons
-
-        adminbtn.setOnClickListener {
-            showToast("Admin")
-            val intent = Intent(this, Admin::class.java)
-            startActivity(intent)
-        }
 
         signupbtn.setOnClickListener {
             showToast("Sign Up")
