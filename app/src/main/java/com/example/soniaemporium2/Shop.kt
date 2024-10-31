@@ -42,28 +42,28 @@ class Shop: AppCompatActivity() {
         // Setting Click Listeners for Add/Remove Buttons
         addButton1.setOnClickListener {
             val selectedSize = sizeSpinner.selectedItem.toString()
-            cartItems.add(CartItem("Yellow Pair(R899.99)- Size: $selectedSize", R.drawable.yellowpair, 899.99))
+            cartItems.add(CartItem("YellowP: $selectedSize", R.drawable.yellowpair, 899.99))
             Toast.makeText(this, "Added Yellow Pair to Cart", Toast.LENGTH_SHORT).show()
         }
 
 
         addButton2.setOnClickListener {
             val selectedSize = spinner.selectedItem.toString()
-            cartItems.add(CartItem("Floral Pair (R999.99)- Size: $selectedSize", R.drawable.floralpair, 999.99))
+            cartItems.add(CartItem("FloralP: $selectedSize", R.drawable.floralpair, 999.99))
             Toast.makeText(this, "Added Floral Pair to Cart", Toast.LENGTH_SHORT).show()
         }
 
 
         addButton3.setOnClickListener {
             val selectedSize = spinner2.selectedItem.toString()
-            cartItems.add(CartItem("Cream Dress (R799.99)- Size: $selectedSize", R.drawable.creamdress, 799.99))
+            cartItems.add(CartItem("CreamD: $selectedSize", R.drawable.creamdress, 799.99))
             Toast.makeText(this, "Added Cream Dress to Cart", Toast.LENGTH_SHORT).show()
         }
 
 
         addButton4.setOnClickListener {
             val selectedSize = spinner3.selectedItem.toString()
-            cartItems.add(CartItem("Pink Top (R599.99)- Size: $selectedSize", R.drawable.pinktop, 599.99))
+            cartItems.add(CartItem("PinkT: $selectedSize", R.drawable.pinktop, 599.99))
             Toast.makeText(this, "Added Cream Skirt to Cart", Toast.LENGTH_SHORT).show()
         }
 
